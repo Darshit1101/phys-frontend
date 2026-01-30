@@ -12,6 +12,7 @@ import ProfilePage from "./pages/Profile/ProfilePage";
 import AuthLayout from "./components/layouts/AuthLayout";
 import Layout from "./components/layouts/Layout";
 import NotFoundPage from "./pages/NotFound/NotFoundPage";
+import Appointment from "./pages/Appointment/AppointmentPage";
 import { useAuth } from "./stores/useAuth";
 
 const LoggedInProtectedRoute = () => {
@@ -40,6 +41,7 @@ function App() {
                 }
               />
               <Route path="/profile" element={<ProfilePage />} />
+              <Route path="/appointment" element={<Appointment />} />
             </Route>
           </Route>
 
