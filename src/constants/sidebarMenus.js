@@ -13,11 +13,6 @@ export const SIDEBAR_MENUS = [
     path: "/",
   },
   {
-    title: "Customers",
-    icon: Users,
-    path: "/customers",
-  },
-  {
     title: "Settings",
     icon: Settings,
     path: "/settings",
