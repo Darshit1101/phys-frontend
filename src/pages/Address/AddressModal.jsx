@@ -1,5 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup'
 import { Box, Checkbox, FormControlLabel, Stack, Typography } from '@mui/material'
+import { useEffect } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
 import Button from '../../components/global/buttons/Button'
@@ -20,7 +21,7 @@ const AddressModal = ({ open, onClose, onSuccess, editData }) => {
   const methods = useForm({
     resolver: yupResolver(addressSchema),
     mode: 'onChange',
-    defaultValues: editData || {
+    defaultValues: {
       line1: '',
       city: '',
       state: '',
@@ -31,6 +32,21 @@ const AddressModal = ({ open, onClose, onSuccess, editData }) => {
   })
 
   const { handleSubmit, formState: { isSubmitting, isValid }, reset, register } = methods
+
+  useEffect(() => {
+    if (editData) {
+      reset(editData)
+    } else {
+      reset({
+        line1: '',
+        city: '',
+        state: '',
+        postalCode: '',
+        isDefault: false,
+        accountId: accountId
+      })
+    }
+  }, [editData, reset, accountId])
 
   const onSubmit = async (data) => {
     try {
@@ -56,7 +72,7 @@ const AddressModal = ({ open, onClose, onSuccess, editData }) => {
       </Typography>
       
       <FormProvider {...methods}>
-        <Box component="form" onSubmit={handleSubmit(onSubmit)}>
+        <Box component="form" onSubmit={handleSubmit(onSubmit)} sx={{ width: "100%" }}>
           <Stack spacing={3}>
             <Input name="line1" label="Address Line" />
             <Input name="city" label="City" />
@@ -64,7 +80,7 @@ const AddressModal = ({ open, onClose, onSuccess, editData }) => {
             <Input name="postalCode" label="Postal Code" />
             
             <FormControlLabel
-              control={<Checkbox {...register('isDefault')} />}
+              control={<Checkbox {...register('isDefault')} defaultChecked={editData?.isDefault} />}
               label="Set as default address"
             />
 
