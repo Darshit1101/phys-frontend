@@ -7,6 +7,11 @@ import AppointmentDataTable from './DataTable'
 
 const AppointmentPage = () => {
   const [openModal, setOpenModal] = useState(false)
+  const [refreshTrigger, setRefreshTrigger] = useState(0)
+
+  const handleSuccess = () => {
+    setRefreshTrigger(prev => prev + 1)
+  }
 
   return (
     <CommonPageLayout>
@@ -20,9 +25,13 @@ const AppointmentPage = () => {
         }
       />
 
-      <AppointmentDataTable />
+      <AppointmentDataTable refreshTrigger={refreshTrigger} />
 
-      <BookAppointmentModal open={openModal} onClose={() => setOpenModal(false)} />
+      <BookAppointmentModal 
+        open={openModal} 
+        onClose={() => setOpenModal(false)} 
+        onSuccess={handleSuccess}
+      />
     </CommonPageLayout>
   )
 }

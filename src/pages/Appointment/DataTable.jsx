@@ -1,10 +1,18 @@
+import React from 'react'
 import { Box, Chip } from '@mui/material'
 import DataTable from '../../components/global/tables/DataTable'
 import apiList from '../../constants/apiList'
 import useApiCall from '../../hooks/useApiCall'
 
-const AppointmentDataTable = () => {
-  const { data, loading } = useApiCall({ ...apiList.APPOINTMENT.LIST })
+const AppointmentDataTable = ({ refreshTrigger }) => {
+  const { data, loading, apiCall } = useApiCall({ ...apiList.APPOINTMENT.LIST })
+
+  // Refresh data when refreshTrigger changes
+  React.useEffect(() => {
+    if (refreshTrigger > 0) {
+      apiCall()
+    }
+  }, [refreshTrigger, apiCall])
 
   const columns = [
     { id: 'customId', label: 'ID', render: (row) => row.customId },

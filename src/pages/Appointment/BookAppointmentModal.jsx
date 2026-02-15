@@ -11,7 +11,7 @@ import { appointmentSlot } from '../../constants/timeSlot'
 import useApiCall from '../../hooks/useApiCall'
 import { appointmentSchema } from '../../validations/appointmentSchema'
 
-const BookAppointmentModal = ({ open, onClose }) => {
+const BookAppointmentModal = ({ open, onClose, onSuccess }) => {
   const { apiCall } = useApiCall({ ...apiList.APPOINTMENT.BOOK, autoFetch: false })
 
   const methods = useForm({
@@ -33,6 +33,7 @@ const BookAppointmentModal = ({ open, onClose }) => {
       toast.success('Appointment booked successfully!')
       reset()
       onClose()
+      onSuccess?.()
     } catch (error) {
       toast.error(error?.response?.data?.message || 'Failed to book appointment')
     }
