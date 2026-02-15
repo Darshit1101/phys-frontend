@@ -14,6 +14,7 @@ import Layout from "./components/layouts/Layout";
 import NotFoundPage from "./pages/NotFound/NotFoundPage";
 import Appointment from "./pages/Appointment/AppointmentPage";
 import Address from "./pages/Address/Main";
+import Toast from "./components/global/toast/Toast";
 import { useAuth } from "./stores/useAuth";
 
 const LoggedInProtectedRoute = () => {
@@ -29,6 +30,7 @@ const LoggedOutProtectedRoute = () => {
 function App() {
   return (
     <>
+      <Toast />
       <BrowserRouter>
         <Routes>
           <Route element={<LoggedInProtectedRoute />}>
