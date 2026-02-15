@@ -33,6 +33,10 @@ const apiList = {
       method: "POST",
       url: `${prefix}/appointment/book`,
     },
+    LIST: {
+      method: "GET",
+      url: `${prefix}/appointment/list`,
+    },
   },
 };
 

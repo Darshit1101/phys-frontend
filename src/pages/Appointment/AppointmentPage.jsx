@@ -3,6 +3,7 @@ import Button from '../../components/global/buttons/Button'
 import CommonPageLayout from '../../components/layouts/CommonPageLayout'
 import PageHeader from '../../components/texts/PageHeader'
 import BookAppointmentModal from './BookAppointmentModal'
+import AppointmentDataTable from './DataTable'
 
 const AppointmentPage = () => {
   const [openModal, setOpenModal] = useState(false)
@@ -18,6 +19,8 @@ const AppointmentPage = () => {
           </Button>
         }
       />
+
+      <AppointmentDataTable />
 
       <BookAppointmentModal open={openModal} onClose={() => setOpenModal(false)} />
     </CommonPageLayout>
