@@ -72,6 +72,30 @@ const BookAppointmentModal = ({ open, onClose }) => {
               )}
             />
 
+            <Controller
+              name="slotDuration"
+              control={control}
+              render={({ field, fieldState: { error } }) => (
+                <TextField
+                  {...field}
+                  fullWidth
+                  select
+                  label="Duration (minutes)"
+                  error={!!error}
+                  helperText={error?.message}
+                  sx={{
+                    '& .MuiOutlinedInput-input': { padding: '14.5px !important' },
+                    '& .MuiOutlinedInput-root': { backgroundColor: 'background.default', borderRadius: '8px' },
+                  }}
+                >
+                  <MenuItem value={15}>15</MenuItem>
+                  <MenuItem value={30}>30</MenuItem>
+                  <MenuItem value={45}>45</MenuItem>
+                  <MenuItem value={60}>60</MenuItem>
+                </TextField>
+              )}
+            />
+
             <TextArea name="problem" label="Problem Description" rows={3} />
 
             <Button type="submit" fullWidth loading={isSubmitting} disabled={!isValid || isSubmitting} sx={{ py: '12px' }}>
