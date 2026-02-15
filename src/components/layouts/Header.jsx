@@ -96,7 +96,9 @@ const Header = ({ setMobileOpen }) => {
           component={Link}
           to="/"
         >
-          <Logo sx={{ width: "140px" }} />
+          {/* <Typography variant="h6" sx={{ fontWeight: 600, color: "primary.main" }}>
+            Activeedge physiotherapy and fitness
+          </Typography> */}
         </Stack>
 
         <IconButton onClick={handleProfileClick}>
