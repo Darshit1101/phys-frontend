@@ -7,11 +7,13 @@ import CommonPageLayout from '../../components/layouts/CommonPageLayout'
 import PageHeader from '../../components/texts/PageHeader'
 import apiList from '../../constants/apiList'
 import useApiCall from '../../hooks/useApiCall'
+import { useAuth } from '../../stores/useAuth'
 import AddressModal from './AddressModal'
 
 const Main = () => {
   const [openModal, setOpenModal] = useState(false)
   const [editData, setEditData] = useState(null)
+  const { setUserDetails } = useAuth()
   const { data, loading, apiCall } = useApiCall({ 
     ...apiList.ADDRESS.LIST
   })
@@ -38,6 +40,7 @@ const Main = () => {
     if (currentDefault) return
     try {
       await setDefaultCall({ url: `${apiList.ADDRESS.SET_DEFAULT.url}/${id}` })
+      setUserDetails({ addressId: id })
       toast.success('Default address updated!')
       apiCall()
     } catch (error) {

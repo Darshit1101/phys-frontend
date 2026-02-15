@@ -9,6 +9,7 @@ export const useAuth = create(
       name: null,
       email: null,
       phone: null,
+      addressId: null,
 
       setUserDetails: (details) => set((state) => ({ ...state, ...details })),
 
@@ -19,6 +20,7 @@ export const useAuth = create(
           name: null,
           email: null,
           phone: null,
+          addressId: null,
         })),
     }),
     { name: "auth" }
