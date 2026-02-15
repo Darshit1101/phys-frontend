@@ -3,7 +3,7 @@ import {
   Settings,
   Users,
   Book,
-  WashingMachine,
+  MapPin,
 } from "lucide-react";
 
 export const SIDEBAR_MENUS = [
@@ -17,4 +17,9 @@ export const SIDEBAR_MENUS = [
     icon: Book,
     path: "/appointment",
   },
+  {
+    title:"Address",
+    icon: MapPin,
+    path: "/address",
+  }
 ];

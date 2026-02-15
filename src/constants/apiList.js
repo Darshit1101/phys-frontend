@@ -38,6 +38,24 @@ const apiList = {
       url: `${prefix}/appointment/list`,
     },
   },
+  ADDRESS: {
+    CREATE: {
+      method: "POST",
+      url: `${prefix}/address/create`,
+    },
+    LIST: {
+      method: "GET",
+      url: `${prefix}/address/getAll`,
+    },
+    UPDATE: {
+      method: "PUT",
+      url: `${prefix}/address/update`,
+    },
+    DELETE: {
+      method: "DELETE",
+      url: `${prefix}/address/delete`,
+    },
+  },
 };
 
 export default apiList;
