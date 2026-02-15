@@ -8,7 +8,7 @@ import TextArea from '../../components/global/inputs/TextArea'
 import CommonPageLayout from '../../components/layouts/CommonPageLayout'
 import PageHeader from '../../components/texts/PageHeader'
 import apiList from '../../constants/apiList'
-import { appointmentSlots } from '../../constants/timeSlot'
+import { appointmentSlot } from '../../constants/timeSlot'
 import useApiCall from '../../hooks/useApiCall'
 import { appointmentSchema } from '../../validations/appointmentSchema'
 
@@ -43,7 +43,9 @@ const AppointmentPage = () => {
       <PageHeader title="Book Appointment" subtitle="Schedule your appointment" />
       <FormProvider {...methods}>
         <Box component="form" onSubmit={handleSubmit(onSubmit)}>
-          <Stack spacing={3}>
+          <Stack
+            sx={{ flexDirection: { xs: "column", md: "row" }, gap: 2, mb: 2 }}
+          >
             <Input name="appointmentDate" label="Appointment Date" type="date" InputLabelProps={{ shrink: true }} />
 
             <Controller
@@ -62,7 +64,7 @@ const AppointmentPage = () => {
                     '& .MuiOutlinedInput-root': { backgroundColor: 'background.default', borderRadius: '8px' },
                   }}
                 >
-                  {appointmentSlots.map((slot) => (
+                  {appointmentSlot.map((slot) => (
                     <MenuItem key={slot} value={slot}>{slot}</MenuItem>
                   ))}
                 </TextField>
