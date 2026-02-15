@@ -60,6 +60,12 @@ const apiList = {
       url: `${prefix}/address/setDefault`,
     },
   },
+  SYNC: {
+    GET: {
+      method: "GET",
+      url: `${prefix}/sync/getSync`,
+    },
+  },
 };
 
 export default apiList;

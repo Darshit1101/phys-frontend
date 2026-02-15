@@ -16,6 +16,9 @@ import Appointment from "./pages/Appointment/AppointmentPage";
 import Address from "./pages/Address/Main";
 import Toast from "./components/global/toast/Toast";
 import { useAuth } from "./stores/useAuth";
+import { useEffect } from "react";
+import useApiCall from "./hooks/useApiCall";
+import apiList from "./constants/apiList";
 
 const LoggedInProtectedRoute = () => {
   const { isLoggedIn } = useAuth();
@@ -28,6 +31,20 @@ const LoggedOutProtectedRoute = () => {
 };
 
 function App() {
+  const { isLoggedIn, setUserDetails } = useAuth();
+  const { apiCall } = useApiCall({ ...apiList.SYNC.GET, autoFetch: false });
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      apiCall().then((response) => {
+        if (response?.data?.defaultAddressId) {
+          setUserDetails({ addressId: response.data.defaultAddressId });
+        }
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoggedIn]);
+
   return (
     <>
       <Toast />
