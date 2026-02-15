@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Box, Card, CardContent, Chip, IconButton, Stack, Typography } from '@mui/material'
+import { Box, Card, CardContent, Chip, IconButton, Stack, Switch, Typography } from '@mui/material'
 import { Edit, MapPin, Trash2 } from 'lucide-react'
 import { toast } from 'react-toastify'
 import Button from '../../components/global/buttons/Button'
@@ -16,6 +16,7 @@ const Main = () => {
     ...apiList.ADDRESS.LIST
   })
   const { apiCall: deleteCall } = useApiCall({ ...apiList.ADDRESS.DELETE, autoFetch: false })
+  const { apiCall: setDefaultCall } = useApiCall({ ...apiList.ADDRESS.SET_DEFAULT, autoFetch: false })
 
   const handleEdit = (address) => {
     setEditData(address)
@@ -30,6 +31,17 @@ const Main = () => {
       apiCall()
     } catch (error) {
       toast.error(error?.response?.data?.message || 'Failed to delete address')
+    }
+  }
+
+  const handleSetDefault = async (id, currentDefault) => {
+    if (currentDefault) return
+    try {
+      await setDefaultCall({ url: `${apiList.ADDRESS.SET_DEFAULT.url}/${id}` })
+      toast.success('Default address updated!')
+      apiCall()
+    } catch (error) {
+      toast.error(error?.response?.data?.message || 'Failed to set default address')
     }
   }
 
@@ -67,21 +79,26 @@ const Main = () => {
                   <Stack direction="row" spacing={2} sx={{ flex: 1 }}>
                     <MapPin size={20} />
                     <Box>
-                      <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 1 }}>
-                        <Typography variant="body1" fontWeight={500}>
-                          {address.line1}
-                        </Typography>
-                        {address.isDefault && (
-                          <Chip label="Default" size="small" color="primary" />
-                        )}
-                      </Stack>
+                      <Typography variant="body1" fontWeight={500} sx={{ mb: 1 }}>
+                        {address.line1}
+                      </Typography>
                       <Typography variant="body2" color="text.secondary">
                         {address.city}, {address.state} - {address.postalCode}
                       </Typography>
                     </Box>
                   </Stack>
                   
-                  <Stack direction="row" spacing={1}>
+                  <Stack direction="row" spacing={2} alignItems="center">
+                    <Stack direction="row" spacing={1} alignItems="center">
+                      <Typography variant="body2" color="text.secondary">
+                        Default
+                      </Typography>
+                      <Switch 
+                        checked={address.isDefault}
+                        onChange={() => handleSetDefault(address._id, address.isDefault)}
+                        size="small"
+                      />
+                    </Stack>
                     <IconButton size="small" onClick={() => handleEdit(address)}>
                       <Edit size={18} />
                     </IconButton>

@@ -55,6 +55,10 @@ const apiList = {
       method: "DELETE",
       url: `${prefix}/address/delete`,
     },
+    SET_DEFAULT: {
+      method: "PATCH",
+      url: `${prefix}/address/setDefault`,
+    },
   },
 };
 

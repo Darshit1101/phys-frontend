@@ -1,5 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup'
-import { Box, Checkbox, FormControlLabel, Stack, Typography } from '@mui/material'
+import { Box, Stack, Typography } from '@mui/material'
 import { useEffect } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
@@ -26,12 +26,11 @@ const AddressModal = ({ open, onClose, onSuccess, editData }) => {
       city: '',
       state: '',
       postalCode: '',
-      isDefault: false,
       accountId: accountId
     },
   })
 
-  const { handleSubmit, formState: { isSubmitting, isValid }, reset, register } = methods
+  const { handleSubmit, formState: { isSubmitting, isValid }, reset } = methods
 
   useEffect(() => {
     if (editData) {
@@ -42,7 +41,6 @@ const AddressModal = ({ open, onClose, onSuccess, editData }) => {
         city: '',
         state: '',
         postalCode: '',
-        isDefault: false,
         accountId: accountId
       })
     }
@@ -78,11 +76,6 @@ const AddressModal = ({ open, onClose, onSuccess, editData }) => {
             <Input name="city" label="City" />
             <Input name="state" label="State" />
             <Input name="postalCode" label="Postal Code" />
-            
-            <FormControlLabel
-              control={<Checkbox {...register('isDefault')} defaultChecked={editData?.isDefault} />}
-              label="Set as default address"
-            />
 
             <Button type="submit" fullWidth loading={isSubmitting} disabled={!isValid || isSubmitting} sx={{ py: '12px' }}>
               {isEdit ? 'Update Address' : 'Add Address'}
