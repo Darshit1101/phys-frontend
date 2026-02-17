@@ -70,6 +70,16 @@ const apiList = {
       url: `${prefix}/sync/getSync`,
     },
   },
+  PROFILE: {
+    GET: {
+      method: "GET",
+      url: `${prefix}/profile/get`,
+    },
+    SAVE: {
+      method: "POST",
+      url: `${prefix}/profile/save`,
+    },
+  },
 };
 
 export default apiList;
