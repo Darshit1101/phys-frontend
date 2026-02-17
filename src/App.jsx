@@ -7,6 +7,7 @@ import {
   Navigate,
 } from "react-router-dom";
 import LoginPage from "./pages/Login/LoginPage";
+import Register from "./pages/Register/Register";
 import DashboardPage from "./pages/dashboard/DashboardPage";
 import ProfilePage from "./pages/Profile/ProfilePage";
 import AuthLayout from "./components/layouts/AuthLayout";
@@ -69,6 +70,7 @@ function App() {
           <Route element={<LoggedOutProtectedRoute />}>
             <Route element={<AuthLayout />}>
               <Route path="/login" element={<LoginPage />} />
+              <Route path="/register" element={<Register />} />
               <Route path="/about" element={<h1>About Page</h1>} />
             </Route>
           </Route>

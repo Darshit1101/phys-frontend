@@ -21,17 +21,17 @@ const AppointmentDataTable = (props) => {
     { id: 'slotStart', label: 'Time', render: (row) => row.slotStart },
     { id: 'slotDuration', label: 'Duration', render: (row) => `${row.slotDuration} min` },
     { id: 'problem', label: 'Problem', render: (row) => row.problem || '-' },
-    {
-      id: 'status',
-      label: 'Status',
-      render: (row) => (
-        <Chip
-          label={row.status || 'Pending'}
-          size="small"
-          color={row.status === 'Confirmed' ? 'success' : 'default'}
-        />
-      )
-    },
+    // {
+    //   id: 'status',
+    //   label: 'Status',
+    //   render: (row) => (
+    //     <Chip
+    //       label={row.status || 'Pending'}
+    //       size="small"
+    //       color={row.status === 'Confirmed' ? 'success' : 'default'}
+    //     />
+    //   )
+    // },
   ]
 
   return (

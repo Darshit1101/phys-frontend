@@ -5,6 +5,10 @@ const apiList = {
       method: "POST",
       url: `${prefix}/auth/login-user`,
     },
+    REGISTER: {
+      method: "POST",
+      url: `${prefix}/auth/create-user`,
+    },
     LOGOUT: {
       method: "POST",
       url: `${prefix}/auth/logout-user`,

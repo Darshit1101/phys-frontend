@@ -4,25 +4,25 @@ import PasswordInput from "../../components/global/inputs/PasswordInput";
 import BlurLayout from "../../components/layouts/BlurLayout";
 import apiList from "../../constants/apiList";
 import useApiCall from "../../hooks/useApiCall";
-import { useAuth } from "../../stores/useAuth";
-import { signInSchema } from "../../validations/signInSchema";
+import { signUpSchema } from "../../validations/signUpSchema";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Box, Stack, Typography } from "@mui/material";
 import { FormProvider, useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
-function LoginPage() {
-  const { setUserDetails } = useAuth();
+function Register() {
+  const navigate = useNavigate();
   const { apiCall } = useApiCall({
-    ...apiList.AUTH.LOGIN,
+    ...apiList.AUTH.REGISTER,
     autoFetch: false,
   });
 
   const methods = useForm({
-    resolver: yupResolver(signInSchema),
+    resolver: yupResolver(signUpSchema),
     mode: "onChange",
     defaultValues: {
+      fullName: "",
       email: "",
       password: "",
     },
@@ -33,20 +33,13 @@ function LoginPage() {
     formState: { isValid, isSubmitting },
   } = methods;
 
-  const onSubmit = async ({ email, password }) => {
+  const onSubmit = async ({ fullName, email, password }) => {
     try {
-      const response = await apiCall({ body: { email, password } });
-      const userData = response.data;
-      const message = response.message;
-      setUserDetails({
-        isLoggedIn: true,
-        id: userData?._id,
-        email: userData?.email,
-        name: userData?.fullName,
-      });
-      toast.success(message || "Admin logged in successfully");
+      const response = await apiCall({ body: { fullName, email, password } });
+      toast.success(response.message || "Account created successfully");
+      navigate("/login");
     } catch (err) {
-      toast.error(err?.response.data.message || "Failed to sign in");
+      toast.error(err?.response?.data?.message || "Failed to create account");
     }
   };
 
@@ -62,10 +55,10 @@ function LoginPage() {
       }}
     >
       <Typography variant="h1" sx={{ textAlign: "center" }}>
-        Welcome back
+        Create Account
       </Typography>
       <Typography sx={{ mt: "8px", textAlign: "center" }}>
-        By logging in, we can ensure that your information is kept secure.
+        Join us today and start your journey with secure access.
       </Typography>
       <FormProvider {...methods}>
         <Box
@@ -78,10 +71,9 @@ function LoginPage() {
           }}
         >
           <Stack spacing={3} sx={{ mt: "40px" }}>
+            <Input name="fullName" label="Full Name" type="text" />
             <Input name="email" label="Email" type="email" />
-            <Box>
-              <PasswordInput name="password" label="Password" />
-            </Box>
+            <PasswordInput name="password" label="Password" />
             <Button
               type="submit"
               fullWidth
@@ -90,14 +82,14 @@ function LoginPage() {
               disabled={!isValid || isSubmitting}
               sx={{ py: "12px" }}
             >
-              Sign In
+              Sign Up
             </Button>
             <Typography sx={{ textAlign: "center", mt: "24px" }}>
-              Don't have an account?{" "}
+              Already have an account?{" "}
               <Link 
-                to="/register" 
+                to="/login" 
                 style={{ 
-                  color: "#004991", 
+                  color: "#1976d2", 
                   textDecoration: "none",
                   fontWeight: 600,
                   transition: "color 0.2s"
@@ -105,7 +97,7 @@ function LoginPage() {
                 onMouseEnter={(e) => e.target.style.color = "#1565c0"}
                 onMouseLeave={(e) => e.target.style.color = "#1976d2"}
               >
-                Register here
+                Login here
               </Link>
             </Typography>
           </Stack>
@@ -115,4 +107,4 @@ function LoginPage() {
   );
 }
 
-export default LoginPage;
+export default Register;
